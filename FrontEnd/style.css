@@ -1,0 +1,207 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 1;
+}
+
+nav {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+nav div a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1em;
+    padding: 0.5em 1em;
+    transition: background-color 0.3s;
+}
+
+nav div a.cart-link {
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+}
+
+nav div a.cart-link:hover {
+    background-color: gray;
+    color: white;
+}
+
+.creative-font {
+    font-family: 'Caveat', cursive;
+}
+
+.welcome-title {
+    font-size: 3.5em;
+    margin-bottom: 0em;
+    color:#e6e600;
+    text-align: center;
+    margin-top: 2em;
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+}
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    color: white;
+    text-align: left;
+    margin: -5em 0;
+}
+
+.home-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2em;
+    border-radius: 10px;
+}
+
+.large-text {
+    font-size: 3em;
+    margin: 0;
+}
+
+.home-content p {
+    margin: 1em 0;
+}
+
+.home-content button {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.home-content button:hover {
+    background-color: gray;
+    color: white;
+}
+
+.menu-title {
+    text-align: center;
+    margin-top: 1em;
+    font-size: 3em;
+    font-family: "Acme", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 1em;
+}
+
+.item {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin: 1em;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    width: 200px;
+}
+
+.item img {
+    max-width: 100%;
+    border-radius: 10px;
+    width: 200px;
+    height: 150px;
+}
+
+.item h3 {
+    margin: 0.5em 0;
+}
+
+.item p {
+    margin: 0.5em 0;
+}
+
+.item button {
+    display: block;
+    margin: 0.5em auto;
+    padding: 0.5em 1em;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.item button:hover {
+    background-color: gray;
+}
+
+main {
+    padding: 2em;
+}
+
+#cart-items {
+    margin: 1em 0;
+}
+
+#cart-items div {
+    margin: 0.5em 0;
+}
+
+#total-amount {
+    font-weight: bold;
+    margin: 1em 0;
+}
+
+button {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    background-color: #333;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: gray;
+    color: white;
+}
+
+form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2em;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
+}
+
+form label {
+    display: block;
+    margin: 0.5em 0 0.2em;
+}
+
+form input, form select {
+    width: calc(100% - 1em);
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    width: 100%;
+}
