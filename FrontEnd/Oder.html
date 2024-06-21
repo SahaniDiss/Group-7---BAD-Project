@@ -11,7 +11,7 @@
     <style>
         body {
             font-family: 'Acme', sans-serif;
-            background-image: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed; /* Add the URL of your background image */
+            background-image: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
             background-size: cover;
             background-position: center;
             color: #fff;
@@ -88,25 +88,13 @@
         .button:hover {
             background-color: #e55337;
         }
-        form {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .success-message {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
         }
-        label {
-            font-size: 1rem;
-        }
-        input {
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        .payment-method {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        p{
+            color: black;
         }
     </style>
 </head>
@@ -130,33 +118,11 @@
             <p id="delivery-charge"></p>
             <p id="order-total"></p>
         </div>
-        <h2>Customer Details</h2>
-        <form id="order-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required><br>
-            <label for="phone">Mobile Number:</label>
-            <input type="text" id="phone" name="phone" required><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
-            <div class="payment-method">
-                <label>Payment Method:</label>
-                <input type="radio" id="cod" name="payment" value="cod" checked>
-                <label for="cod">Cash on Delivery</label>
-                <input type="radio" id="card" name="payment" value="card">
-                <label for="card">Card Payment</label>
-            </div>
-            <div id="card-details" style="display: none;">
-                <label for="card-number">Card Number:</label>
-                <input type="text" id="card-number" name="card-number"><br>
-                <label for="expiry-date">Expiry Date:</label>
-                <input type="text" id="expiry-date" name="expiry-date"><br>
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv"><br>
-            </div>
-            <button type="submit" class="button">Place Order</button>
-        </form>
+        <div class="success-message">
+            <p>Your order has been placed successfully.</p>
+            <p>Please make the payment at the point of delivery with cash or card payment options.</p>
+        </div>
+        <button class="button" onclick="goHome()">Return to Home</button>
     </main>
 
     <script>
@@ -182,29 +148,13 @@
             document.getElementById('order-total').textContent = `Total: Rs ${totalValue.toFixed(2)}`;
         }
 
+        function goHome() {
+            window.location.href = 'HomePage.html';
+        }
+
         document.addEventListener('DOMContentLoaded', (event) => {
             loadOrderSummary();
-
-            const paymentMethods = document.getElementsByName('payment');
-            const cardDetails = document.getElementById('card-details');
-
-            paymentMethods.forEach(method => {
-                method.addEventListener('change', () => {
-                    if (document.getElementById('card').checked) {
-                        cardDetails.style.display = 'block';
-                    } else {
-                        cardDetails.style.display = 'none';
-                    }
-                });
-            });
-
-            const orderForm = document.getElementById('order-form');
-            orderForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                alert('Order placed successfully!');
-                localStorage.removeItem('cart');
-                window.location.href = 'HomePage.html';
-            });
+            localStorage.removeItem('cart');
         });
     </script>
 </body>

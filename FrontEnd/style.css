@@ -6,8 +6,7 @@ body {
     background: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
-}
-
+}  
 /* Navigation Styles */
 nav {
     background-color: rgba(0, 0, 0, 0.8);
@@ -75,12 +74,12 @@ main {
 }
 
 .welcome-title {
-    font-size: 3.5em;
+    font-size: 4.5em;
     margin-bottom: 0em;
-    color: #e6e600;
+    color: #f7f5f5;
     text-align: center;
-    margin-top: 2em;
-    font-family: "Playfair Display", serif;
+    margin-top: 3em;
+    font-family: "Acme", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400; /* Ensure correct font-weight */
     font-style: normal;
@@ -266,78 +265,82 @@ ul {
     padding-left: 1.5em;
 }
 
-.contact-section {
+
+.auth-form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 50px 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    justify-content: center;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.intro-section h1 {
+.auth-form h2 {
+    font-size: 2em;
+    color: White;
     margin-bottom: 10px;
-    font-size: 32px;
-    color: black; /* Changed color to black */
+    margin-top: 5em;
+    font-family: "Acme", sans-serif;
 }
 
-.intro-section p {
-    margin-bottom: 40px;
-    color: black; /* Changed color to black */
-}
-
-.contact-follow-wrapper {
+.auth-form form {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 40px;
-}
-
-.contact-info,
-.follow-us {
-    width: 45%; /* Adjusted width to fit side by side */
-}
-
-.contact-info h2,
-.follow-us h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.contact-info .info-item,
-.follow-us .social-item {
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
 }
 
-.contact-info .info-item i,
-.follow-us .social-icon i {
-    font-size: 24px;
-    color: #d32f2f;
-}
-
-.contact-info .info-item div,
-.follow-us .social-icon {
-    margin: 0 20px;
-}
-
-.contact-info .info-item h3,
-.follow-us .social-icon h3 {
-    margin: 0;
-    font-size: 18px;
+.auth-form label {
+    align-self: flex-start;
+    margin-top: 10px;
     color: #333;
 }
 
-.contact-info .info-item p,
-.follow-us .social-icon p {
-    margin: 5px 0 0;
-    color: #555;
+.auth-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-.follow-us {
+.auth-form button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.auth-form button:hover {
+    background-color: #45a049;
+}
+
+.auth-form p {
+    text-align: center;
     margin-top: 20px;
+    font-size: 1em;
+    color: #333;
+}
+
+.auth-form p a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.auth-form p a:hover {
+    text-decoration: underline;
 }
