@@ -3,57 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Contact Us - Banana Leaf Restaurant</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <style>
+        .contact-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            box-sizing: border-box;
+            color: #fff; /* Text color for contact details */
+        }
+
+        .contact-info-container,
+        .opening-hours-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque white background */
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center; /* Center align content */
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .opening-hours {
+            margin-top: 20px;
+        }
+
+        .contact-info p,
+        .opening-hours p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #333; /* Text color for contact details */
+            text-align: center; /* Center align text */
+        }
+
+        .contact-info a {
+            color: #4CAF50; /* Link color for email */
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .opening-hours h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 2em; /* Font size for "Opening Hours" */
+            color: #fff; /* Text color for "Opening Hours" */
+            margin-bottom: 10px;
+            text-align: center; /* Center align text */
+        }
+
+        .opening-hours p {
+            font-size: 1.2em; /* Font size for opening hours details */
+            text-align: center; /* Center align text */
+        }
+    </style>
 </head>
 <body>
-    <div class="contact-section">
-        <div class="intro-section">
-            <h1>Let's Get in Touch!</h1>
-            <p>We'd love to hear from you</p>
+    <nav>
+        <h1 class="creative-font">Banana Leaf</h1>
+        <div>
+            <a href="HomePage.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="Menu.html" class="button">Menu</a>
+            <a href="contact.html">Contact</a>
+            <a href="Cart.html" class="button cart-link">Selected Items</a>
         </div>
-        
-        <div class="contact-follow-wrapper">
+    </nav>
+    <main class="contact-page">
+        <div class="contact-info-container">
+            <h2>Contact Us</h2>
             <div class="contact-info">
-                <h2>Contact Us</h2>
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h3>Email</h3>
-                        <p>bananaleaf@gmail.com</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-phone"></i>
-                    <div>
-                        <h3>Phone</h3>
-                        <p>+94117777888</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <h3>Address</h3>
-                        <p>120, Hill Street, Dehiwala, Western Province, 10350 Sri Lanka</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="follow-us">
-                <h2>Follow Us</h2>
-                <div class="social-item">
-                    <a href="https://www.instagram.com/bananaLeaf" class="social-icon" target="_blank">
-                        <i class="fab fa-instagram"></i> <span>@bananaLeaf</span>
-                    </a>
-                </div>
-                <div class="social-item">
-                    <a href="https://www.facebook.com/BananaLeaf" class="social-icon" target="_blank">
-                        <i class="fab fa-facebook"></i> <span>BananaLeaf</span>
-                    </a>
-                </div>
+                <p><strong>Phone:</strong> (+94) 77 442 2448</p>
+                <p><strong>Email:</strong> <a href="mailto:bannanaleaf@info.lk">bannanaleaf@info.lk</a></p>
+                <p><strong>Address:</strong> No 25 Kensington Garden, Colombo 00400</p>
             </div>
         </div>
-    </div>
+        <div class="opening-hours-container">
+            <h2>Opening Hours</h2>
+            <div class="opening-hours">
+                <p><strong>Monday - Thursday:</strong> 12.00 - 3.30 PM & 6.30 - 10.30 PM</p>
+                <p><strong>Friday - Sunday:</strong> 12.00 - 3.30 PM & 6.30 - 10.30 PM</p>
+                <p>(Hours might differ)</p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
