@@ -9,6 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
         main {
             display: flex;
             flex-direction: column;
@@ -21,7 +30,6 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            margin-top: 80px;
         }
         .menu-title {
             font-size: 1.5rem;
@@ -32,6 +40,9 @@
         }
         #order-summary p {
             margin: 10px 0;
+        }
+        #order-value, #delivery-charge, #order-total,p {
+            color: #000;
         }
         #order-total {
             font-size: 1.5rem;
@@ -51,25 +62,10 @@
         .button:hover {
             background-color: #e55337;
         }
-        form {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        label {
-            font-size: 1rem;
-        }
-        input {
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        .payment-method {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .message {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -93,33 +89,12 @@
             <p id="delivery-charge"></p>
             <p id="order-total"></p>
         </div>
-        <h2>Customer Details</h2>
-        <form id="order-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required><br>
-            <label for="phone">Mobile Number:</label>
-            <input type="text" id="phone" name="phone" required><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
-            <div class="payment-method">
-                <label>Payment Method:</label>
-                <input type="radio" id="cod" name="payment" value="cod" checked>
-                <label for="cod">Cash on Delivery</label>
-                <input type="radio" id="card" name="payment" value="card">
-                <label for="card">Card Payment</label>
-            </div>
-            <div id="card-details" style="display: none;">
-                <label for="card-number">Card Number:</label>
-                <input type="text" id="card-number" name="card-number"><br>
-                <label for="expiry-date">Expiry Date:</label>
-                <input type="text" id="expiry-date" name="expiry-date"><br>
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv"><br>
-            </div>
-            <button type="submit" class="button">Place Order</button>
-        </form>
+        <div class="message">
+            <p>THANK YOU!</p>
+            <p>Your order has been placed successfully.</p>
+            <p><i>Please make the payment at the point of delivery with cash or card payment options.</i></p>
+        </div>
+        <button class="button" onclick="goToHomePage()">Home</button>
     </main>
 
     <script>
@@ -145,29 +120,13 @@
             document.getElementById('order-total').textContent = `Total: Rs ${totalValue.toFixed(2)}`;
         }
 
+        function goToHomePage() {
+            localStorage.removeItem('cart');
+            window.location.href = 'HomePage.html';
+        }
+
         document.addEventListener('DOMContentLoaded', (event) => {
             loadOrderSummary();
-
-            const paymentMethods = document.getElementsByName('payment');
-            const cardDetails = document.getElementById('card-details');
-
-            paymentMethods.forEach(method => {
-                method.addEventListener('change', () => {
-                    if (document.getElementById('card').checked) {
-                        cardDetails.style.display = 'block';
-                    } else {
-                        cardDetails.style.display = 'none';
-                    }
-                });
-            });
-
-            const orderForm = document.getElementById('order-form');
-            orderForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                alert('Order placed successfully!');
-                localStorage.removeItem('cart');
-                window.location.href = 'HomePage.html';
-            });
         });
     </script>
 </body>
