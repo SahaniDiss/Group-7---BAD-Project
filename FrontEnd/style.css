@@ -265,6 +265,7 @@ ul {
     padding-left: 1.5em;
 }
 
+/* order page styles */
 
 .auth-form {
     display: flex;
@@ -343,4 +344,73 @@ ul {
 
 .auth-form p a:hover {
     text-decoration: underline;
+}
+
+
+/* Contact Page Styles */
+.contact-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    box-sizing: border-box;
+    color: #fff; /* Text color for contact details */
+    margin-top: 50px; /* Add margin to balance the space */
+}
+
+.contact-info-container,
+.opening-hours-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly opaque white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center; /* Center align content */
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.contact-info {
+    margin-bottom: 20px;
+    text-align: center; /* Center align text within contact-info-container */
+}
+
+.opening-hours {
+    margin-top: 20px;
+    text-align: center; /* Center align text within opening-hours-container */
+}
+
+.contact-info p,
+.opening-hours p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #fff; /* Text color for contact details */
+}
+
+.contact-info a {
+    color: #fff; /* Link color for email */
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.opening-hours h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 2em; /* Font size for "Opening Hours" */
+    color: #fff; /* Text color for "Opening Hours" */
+    margin-bottom: 10px;
+}
+
+.opening-hours p {
+    font-size: 1.2em; /* Font size for opening hours details */
 }
