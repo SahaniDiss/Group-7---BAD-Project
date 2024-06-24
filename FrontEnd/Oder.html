@@ -10,13 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <style>
         body {
+            font-family: 'Acme', sans-serif;
+            background-image: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;; /* Add the URL of your background image */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            min-height: 100vh;
         }
         main {
             display: flex;
@@ -41,7 +46,7 @@
         #order-summary p {
             margin: 10px 0;
         }
-        #order-value, #delivery-charge, #order-total, .message {
+        #order-value, #delivery-charge, #order-total, p {
             color: #000;
         }
         #order-total {
