@@ -31,7 +31,7 @@ nav h1 {
 
 nav div {
     display: flex;
-    gap: 10px;
+    gap: 20px;
 }
 
 nav div a {
@@ -76,9 +76,9 @@ main {
 .welcome-title {
     font-size: 4.5em;
     margin-bottom: 0em;
-    color: #f7f5f5;
+    color: #f4f4f4;
     text-align: center;
-    margin-top: 3em;
+    margin-top: 2.2em;
     font-family: "Acme", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400; /* Ensure correct font-weight */
@@ -92,13 +92,14 @@ main {
     height: 90vh;
     color: white;
     text-align: left;
-    margin: -5em 0;
+    margin: -10em 0;
 }
 
 .home-content {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 2em;
     border-radius: 10px;
+
 }
 
 .large-text {
@@ -113,7 +114,9 @@ main {
 .home-content button {
     padding: 0.5em 1em;
     font-size: 1em;
-    background-color: white;
+    font-family: 'Acme', sans-serif;
+    background-color: #ff6347;
+    color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -121,7 +124,7 @@ main {
 
 .home-content button:hover {
     background-color: gray;
-    color: white;
+    color: black;
 }
 
 .menu-title {
@@ -307,6 +310,7 @@ form button {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 2em;
     margin: 1em;
+    margin-top: 80px; 
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: #fff;  /* Change text color to white */
