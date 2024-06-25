@@ -4,7 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        #admin-dashboard {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li img {
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        form label {
+            display: flex;
+            flex-direction: column;
+        }
+        form input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        form button {
+            align-self: center;
+            width: 150px;
+            background-color: #2ecc71;
+        }
+        form button:hover {
+            background-color: #27ae60;
+        }
+    </style>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
@@ -12,57 +90,137 @@
         <button onclick="viewCustomers()">View Registered Customers</button>
         <button onclick="viewOrders()">View Orders</button>
         <button onclick="manageMenuItems()">Manage Menu Items</button>
-        <button onclick="viewDailySales()">View Daily Sales</button>
     </div>
     <div id="content"></div>
 
-    <script src="scripts.js"></script>
+    <script>
+        async function viewCustomers() {
+            try {
+                const response = await fetch('http://localhost:8080/customers');
+                const customers = await response.json();
+                let content = '<h2>Registered Customers</h2><ul>';
+                customers.forEach(customer => {
+                    content += `<li>${customer.Cust_FName} ${customer.Cust_LName} - ${customer.Cust_email}</li>`;
+                });
+                content += '</ul>';
+                document.getElementById('content').innerHTML = content;
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+                document.getElementById('content').innerHTML = '<p>Error fetching customers</p>';
+            }
+        }
+
+        async function viewOrders() {
+            try {
+                const response = await fetch('http://localhost:8080/orders');
+                const orders = await response.json();
+                let content = '<h2>Orders</h2><ul>';
+                orders.forEach(order => {
+                    content += `<li>Order No: ${order.Order_No}, Customer ID: ${order.Cust_ID}, Date: ${order.Order_Date}, Time: ${order.Order_Time}</li>`;
+                });
+                content += '</ul>';
+                document.getElementById('content').innerHTML = content;
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+                document.getElementById('content').innerHTML = '<p>Error fetching orders</p>';
+            }
+        }
+
+        async function manageMenuItems() {
+            try {
+                const response = await fetch('http://localhost:8080/menu_items');
+                const menuItems = await response.json();
+                let content = '<h2>Menu Items</h2>';
+                content += '<button onclick="showAddItemForm()">Add New Item</button>';
+                content += '<ul>';
+                menuItems.forEach(item => {
+                    content += `<li>
+                        ${item.Item_Name} - ${item.Unit_Price} <img src="${item.Item_Img_path}" alt="${item.Item_Name}" width="50">
+                        <button onclick="showEditItemForm(${item.Item_ID}, '${item.Item_Name}', ${item.Unit_Price}, '${item.Item_Img_path}')">Edit</button>
+                    </li>`;
+                });
+                content += '</ul>';
+                content += '<div id="item-form"></div>';
+                document.getElementById('content').innerHTML = content;
+            } catch (error) {
+                console.error('Error fetching menu items:', error);
+                document.getElementById('content').innerHTML = '<p>Error fetching menu items</p>';
+            }
+        }
+
+        function showAddItemForm() {
+            const form = `
+                <h3>Add New Item</h3>
+                <form onsubmit="addItem(event)">
+                    <label>Name: <input type="text" id="itemName" required></label><br>
+                    <label>Price: <input type="number" id="itemPrice" required></label><br>
+                    <label>Image Path: <input type="text" id="itemImgPath" required></label><br>
+                    <button type="submit">Add Item</button>
+                </form>
+            `;
+            document.getElementById('item-form').innerHTML = form;
+        }
+
+        async function addItem(event) {
+            event.preventDefault();
+            const name = document.getElementById('itemName').value;
+            const price = document.getElementById('itemPrice').value;
+            const imgPath = document.getElementById('itemImgPath').value;
+
+            try {
+                const response = await fetch('http://localhost:8080/menu_items', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, price, imgPath })
+                });
+                if (response.ok) {
+                    manageMenuItems();
+                } else {
+                    console.error('Error adding item:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error adding item:', error);
+            }
+        }
+
+        function showEditItemForm(id, name, price, imgPath) {
+            const form = `
+                <h3>Edit Item</h3>
+                <form onsubmit="editItem(event, ${id})">
+                    <label>Name: <input type="text" id="editItemName" value="${name}" required></label><br>
+                    <label>Price: <input type="number" id="editItemPrice" value="${price}" required></label><br>
+                    <label>Image Path: <input type="text" id="editItemImgPath" value="${imgPath}" required></label><br>
+                    <button type="submit">Update Item</button>
+                </form>
+            `;
+            document.getElementById('item-form').innerHTML = form;
+        }
+
+        async function editItem(event, id) {
+            event.preventDefault();
+            const name = document.getElementById('editItemName').value;
+            const price = document.getElementById('editItemPrice').value;
+            const imgPath = document.getElementById('editItemImgPath').value;
+
+            try {
+                const response = await fetch(`http://localhost:8080/menu_items/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, price, imgPath })
+                });
+                if (response.ok) {
+                    manageMenuItems();
+                } else {
+                    console.error('Error updating item:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error updating item:', error);
+            }
+        }
+    </script>
 </body>
-<script>
-    // scripts.js
-
-    async function viewCustomers() {
-        const response = await fetch('/admin/customers');
-        const customers = await response.json();
-        let content = '<h2>Registered Customers</h2><ul>';
-        customers.forEach(customer => {
-            content += `<li>${customer.Cust_FName} ${customer.Cust_LName} - ${customer.Cust_email}</li>`;
-        });
-        content += '</ul>';
-        document.getElementById('content').innerHTML = content;
-    }
-
-    async function viewOrders() {
-        const response = await fetch('/admin/orders');
-        const orders = await response.json();
-        let content = '<h2>Orders</h2><ul>';
-        orders.forEach(order => {
-            content += `<li>Order No: ${order.Order_No}, Customer ID: ${order.Cust_ID}, Date: ${order.Order_Date}, Time: ${order.Order_Time}</li>`;
-        });
-        content += '</ul>';
-        document.getElementById('content').innerHTML = content;
-    }
-
-    async function manageMenuItems() {
-        const response = await fetch('/admin/menu-items');
-        const menuItems = await response.json();
-        let content = '<h2>Menu Items</h2><ul>';
-        menuItems.forEach(item => {
-            content += `<li>${item.Item_Name} - ${item.Unit_Price} <img src="${item.Item_Img_path}" alt="${item.Item_Name}" width="50"></li>`;
-        });
-        content += '</ul>';
-        document.getElementById('content').innerHTML = content;
-    }
-
-    async function viewDailySales() {
-        const response = await fetch('/admin/daily-sales');
-        const sales = await response.json();
-        let content = '<h2>Daily Sales</h2>';
-        sales.forEach(sale => {
-            content += `<p>${sale.date}: ${sale.total}</p>`;
-        });
-        document.getElementById('content').innerHTML = content;
-    }
-
-</script>
 </html>

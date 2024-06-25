@@ -207,6 +207,39 @@ app.post('/place_order', (req, res) => {
     });
 });
 
+//Get all orders
+app.get('/orders', (req, res) => {
+    mysqlConnection.query('SELECT * FROM food_order', (err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            res.send(err);
+    });
+});
+
+// Add a new menu item
+app.post('/menu_items', (req, res) => {
+    const { name, price, imgPath } = req.body;
+    let sql = "INSERT INTO menu_item (Item_Name, Unit_Price, Item_Img_path) VALUES (?, ?, ?)";
+    mysqlConnection.query(sql, [name, price, imgPath], (err, result) => {
+        if (!err)
+            res.send('Menu item added successfully');
+        else
+            res.send(err);
+    });
+});
+
+// Update an existing menu item
+app.put('/menu_items/:id', (req, res) => {
+    const { name, price, imgPath } = req.body;
+    let sql = "UPDATE menu_item SET Item_Name = ?, Unit_Price = ?, Item_Img_path = ? WHERE Item_ID = ?";
+    mysqlConnection.query(sql, [name, price, imgPath, req.params.id], (err, result) => {
+        if (!err)
+            res.send('Menu item updated successfully');
+        else
+            res.send(err);
+    });
+});
 
 // Change the port to 8080 for testing
 const PORT = 8080;
