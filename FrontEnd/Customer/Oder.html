@@ -93,37 +93,39 @@
             document.getElementById('order-total').textContent = `Total: Rs ${totalValue.toFixed(2)}`;
         }
 
-        function placeOrder() {
+        function proceedToOrder() {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            let customer = JSON.parse(localStorage.getItem('customer')); // Assuming customer info is stored in localStorage
+            let customer = JSON.parse(localStorage.getItem('customer'));
+
+            if (!customer) {
+                alert("Please sign in before placing your order.");
+                return;
+            }
 
             fetch('http://localhost:8080/place_order', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    custId: customer.id,
-                    cart: cart.map(item => ({
-                        id: item.id, // Assuming each item has an id
-                        quantity: item.quantity
-                    }))
+                custId: customer.id,
+                cart: cart.map(item => ({ id: item.id, quantity: item.quantity }))
                 })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.status_code === 200) {
-                    alert('Order placed successfully!');
-                    localStorage.removeItem('cart');
-                    window.location.href = 'HomePage.html';
+                alert('Order placed successfully!');
+                localStorage.removeItem('cart');
+                window.location.href = 'HomePage.html';
                 } else {
-                    alert('Error placing order: ' + data.data);
+                alert('Error placing order: ' + data.data);
                 }
             })
             .catch(error => {
                 console.error('Error placing order:', error);
             });
-        }
+            }
 
         document.addEventListener('DOMContentLoaded', (event) => {
             loadOrderSummary();
