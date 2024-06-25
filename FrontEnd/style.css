@@ -182,8 +182,32 @@ main {
     background-color: gray;
 }
 
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+.cart-item span {
+    flex: 1;
+}
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+.quantity-control button {
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 3px;
+}
+
 #cart-items {
     margin: 1em 0;
+    width: 100%;
 }
 
 #cart-items div {
@@ -193,6 +217,18 @@ main {
 #total-amount {
     font-weight: bold;
     margin: 1em 0;
+}
+
+.delete-button {
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.delete-button:hover {
+    background-color: #e55337;
 }
 
 button {
@@ -207,6 +243,18 @@ button {
 button:hover {
     background-color: gray;
     color: white;
+}
+
+#charges {
+    text-align: right;
+    margin: 20px 0;
+}
+#charges p {
+    margin: 5px 0;
+}
+#total-amount {
+    font-size: 1.5rem;
+    text-align: right;
 }
 
 form {
@@ -232,6 +280,26 @@ form input, form select {
 
 form button {
     width: 100%;
+}
+
+.button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+}
+.button:hover {
+    background-color: #e55337;
+}
+.message {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 20px;
 }
 
 /* About Page Styles */
@@ -266,7 +334,19 @@ ul {
 }
 
 /* order page styles */
+#order-summary {
+    width: 100%;
+}
+#order-summary p {
+    margin: 10px 0;
+}
 
+#order-total {
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+/* authenitication form styles */
 .auth-form {
     display: flex;
     flex-direction: column;
