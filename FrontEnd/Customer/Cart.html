@@ -221,7 +221,7 @@
     .then(response => response.json())
     .then(data => {
         if (data.status_code === 200) {
-            localStorage.removeItem('cart');
+            //localStorage.removeItem('cart');
             window.location.href = 'Order.html';
         } else {
             alert('Failed to place order: ' + data.data);
