@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Banana Leaf Restaurant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Acme&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <h1 class="creative-font">Banana Leaf</h1>
+        <div>
+            <a href="HomePage.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="Menu.html" class="button">Menu</a>
+            <a href="contact.html">Contact</a>
+            <a href="Cart.html" class="button cart-link">Selected Items</a>
+        </div>
+    </nav>
+    <main class="auth-form">
+        <h2>Create Your Account</h2>
+        <form action="dashboard.html" method="POST" id="signup" action="http://localhost:8080/customers">
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required>
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </main>
+</body>
+
+<script>
+    const form = document.getElementById('signup');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Get form data (consider using FormData for complex forms)
+    
+        const fname = document.getElementById('fname').value;
+        const lname = document.getElementById('lname').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+        const mobile = document.getElementById('mobile').value;
+        const password = document.getElementById('password').value;
+
+        // Send data to the server using fetch or XMLHttpRequest
+        fetch('http://localhost:8080/customers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fname, lname, email, address, mobile, password }) // Send data as JSON
+        })
+        .then(response => response.json()) // Process the response
+        .then(data => {
+            console.log('Success:', data);
+            if(data.status_code== 200){
+                const redirectTo = "./signin.html";
+                window.location.href = redirectTo;
+            }
+            else{
+                alert(data.data);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle errors (e.g., display an error message)
+        });
+    });
+</script>
+
+</html>
+
