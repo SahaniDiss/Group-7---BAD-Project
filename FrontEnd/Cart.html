@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
     <style>
         body {
             
@@ -50,12 +51,12 @@
             <a href="about.html">About</a>
             <a href="menu.html" >Menu</a>
             <a href="contact.html">Contact</a>
-            <a href="signin.html">Sign In</a>
-            <a href="Cart.html" class="button cart-link">Selected Items</a>
+            <a href="signin.html">SignIn</a>
+            <a href="Cart.html"class="button">Cart</a>
         </div>
     </nav>
     <main>
-        <h2 class="menu-title creative-font">Your Cart</h2>
+        <h2>Your Cart</h2>
         <div id="cart-items"></div>
         <div id="charges">
             <p id="delivery-charge"></p>
@@ -95,7 +96,7 @@
                 totalAmount += deliveryCharge;
 
                 document.getElementById('delivery-charge').textContent = `Delivery Charge: Rs ${deliveryCharge.toFixed(2)}`;
-                document.getElementById('total-amount').textContent = `Total: Rs ${totalAmount.toFixed(2)}`;
+                document.getElementById('total-amount').textContent = `Total: Rs  ${totalAmount.toFixed(2)}`;
             }
         }
 
