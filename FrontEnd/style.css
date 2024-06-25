@@ -39,7 +39,11 @@ nav div a {
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
 }
 
 nav div a:hover {
@@ -61,6 +65,7 @@ nav .button {
     background-color: #ff6347;
     padding: 10px 20px;
     border-radius: 5px;
+    width: 50px;
 }
 
 /* Main Content Styles */
@@ -76,9 +81,9 @@ main {
 .welcome-title {
     font-size: 4.5em;
     margin-bottom: 0em;
-    color: #f7f5f5;
+    color: #f4f4f4;
     text-align: center;
-    margin-top: 3em;
+    margin-top: 2.2em;
     font-family: "Acme", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400; /* Ensure correct font-weight */
@@ -92,13 +97,14 @@ main {
     height: 90vh;
     color: white;
     text-align: left;
-    margin: -5em 0;
+    margin: -10em 0;
 }
 
 .home-content {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 2em;
     border-radius: 10px;
+
 }
 
 .large-text {
@@ -113,7 +119,9 @@ main {
 .home-content button {
     padding: 0.5em 1em;
     font-size: 1em;
-    background-color: white;
+    font-family: 'Acme', sans-serif;
+    background-color: #ff6347;
+    color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -121,7 +129,7 @@ main {
 
 .home-content button:hover {
     background-color: gray;
-    color: white;
+    color: black;
 }
 
 .menu-title {
@@ -182,8 +190,32 @@ main {
     background-color: gray;
 }
 
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+.cart-item span {
+    flex: 1;
+}
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+.quantity-control button {
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 3px;
+}
+
 #cart-items {
     margin: 1em 0;
+    width: 100%;
 }
 
 #cart-items div {
@@ -192,7 +224,20 @@ main {
 
 #total-amount {
     font-weight: bold;
+    color: rgb(233, 77, 10);
     margin: 1em 0;
+}
+
+.delete-button {
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.delete-button:hover {
+    background-color: #e55337;
 }
 
 button {
@@ -207,6 +252,18 @@ button {
 button:hover {
     background-color: gray;
     color: white;
+}
+
+#charges {
+    text-align: right;
+    margin: 20px 0;
+}
+#charges p {
+    margin: 5px 0;
+}
+#total-amount {
+    font-size: 1.5rem;
+    text-align: right;
 }
 
 form {
@@ -234,11 +291,32 @@ form button {
     width: 100%;
 }
 
+.button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+}
+.button:hover {
+    background-color: #e55337;
+}
+.message {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
 /* About Page Styles */
 .about-us, .our-team, .mission-values {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 2em;
     margin: 1em;
+    margin-top: 80px; 
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: #fff;  /* Change text color to white */
@@ -265,7 +343,20 @@ ul {
     padding-left: 1.5em;
 }
 
+/* order page styles */
+#order-summary {
+    width: 100%;
+}
+#order-summary p {
+    margin: 10px 0;
+}
 
+#order-total {
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+/* authenitication form styles */
 .auth-form {
     display: flex;
     flex-direction: column;
@@ -343,4 +434,73 @@ ul {
 
 .auth-form p a:hover {
     text-decoration: underline;
+}
+
+
+/* Contact Page Styles */
+.contact-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    box-sizing: border-box;
+    color: #fff; /* Text color for contact details */
+    margin-top: 50px; /* Add margin to balance the space */
+}
+
+.contact-info-container,
+.opening-hours-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly opaque white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center; /* Center align content */
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.contact-info {
+    margin-bottom: 20px;
+    text-align: center; /* Center align text within contact-info-container */
+}
+
+.opening-hours {
+    margin-top: 20px;
+    text-align: center; /* Center align text within opening-hours-container */
+}
+
+.contact-info p,
+.opening-hours p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #fff; /* Text color for contact details */
+}
+
+.contact-info a {
+    color: #fff; /* Link color for email */
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.opening-hours h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 2em; /* Font size for "Opening Hours" */
+    color: #fff; /* Text color for "Opening Hours" */
+    margin-bottom: 10px;
+}
+
+.opening-hours p {
+    font-size: 1.2em; /* Font size for opening hours details */
 }
