@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Banana Leaf</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 110vh;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .menu-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        #order-value, #delivery-charge, #order-total, p {
+            color: #000;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <h1 class="creative-font">Banana Leaf</h1>
+    <div>
+        <a href="HomePage.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="Menu.html" class="button">Menu</a>
+        <a href="contact.html">Contact</a>
+        <a href="signin.html">SignIn</a>
+        <a href="Cart.html">Cart</a>
+    </div>
+</nav>
+<main>
+    <h2>Order Summary</h2>
+    <div id="order-summary">
+        <h3>Items Ordered</h3>
+        <div id="cart-items"></div>
+        <p id="order-value"></p>
+        <p id="delivery-charge"></p>
+        <p id="order-total"></p>
+    </div>
+    <div class="message">
+        <p><b>THANK YOU!</b></p>
+        <p>Your order has been placed successfully.</p>
+        <p>Please make the payment at the point of delivery with cash or card payment options.</p>
+    </div>
+    <button class="button" id="close-button">Close</button>
+</main>
+
+<script>
+    function loadOrderSummary() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cartItems = document.getElementById('cart-items');
+        let orderValue = 0;
+
+        cartItems.innerHTML = '';
+        cart.forEach(item => {
+            let div = document.createElement('div');
+            div.classList.add('cart-item');
+            div.innerHTML = `<span>${item.item} (x${item.quantity})</span> <span>Rs ${(item.unitPrice * item.quantity).toFixed(2)}</span>`;
+            cartItems.appendChild(div);
+            orderValue += item.unitPrice * item.quantity;
+        });
+
+        const deliveryCharge = orderValue * 0.05;
+        const totalValue = orderValue + deliveryCharge;
+
+        document.getElementById('order-value').textContent = `Order Value: Rs ${orderValue.toFixed(2)}`;
+        document.getElementById('delivery-charge').textContent = `Delivery Charge: Rs ${deliveryCharge.toFixed(2)}`;
+        document.getElementById('order-total').textContent = `Total: Rs ${totalValue.toFixed(2)}`;
+    }
+
+    function proceedToOrder() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let customer = JSON.parse(localStorage.getItem('customer'));
+
+        if (!customer) {
+            alert("Please sign in before placing your order.");
+            return;
+        }
+
+        fetch('http://localhost:8080/place_order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                custId: customer.id,
+                cart: cart.map(item => ({ id: item.id, quantity: item.quantity }))
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status_code === 200) {
+                    alert('Order placed successfully!');
+                    localStorage.removeItem('cart');
+                    window.location.href = 'HomePage.html';
+                } else {
+                    alert('Error placing order: ' + data.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error placing order:', error);
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        loadOrderSummary();
+    });
+
+    document.getElementById('close-button').addEventListener('click', () => {
+        localStorage.removeItem('cart');
+        window.location.href = 'HomePage.html';
+    });
+</script>
+</body>
+</html>
