@@ -51,7 +51,8 @@
             const result = await response.json();
             console.log(result);
             if (result.status_code === 200) {
-                localStorage.setItem('username', result.data.Login_username);
+                localStorage.setItem('username', result.data.Login_username); // Storing the email as username
+                localStorage.setItem('customerId', result.data.Customer_ID); // Storing the customer ID
                 alert('Sign-in successful');
                 // Redirect
                 window.location.href = './HomePage.html';
