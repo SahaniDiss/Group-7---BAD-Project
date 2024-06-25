@@ -5,6 +5,10 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const bcrypt = require('bcrypt');
 
+const path = require('path');
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+
 // configuring express server
 app.use(bodyparser.json());
 app.use(cors());
@@ -143,6 +147,19 @@ app.post('/signin', (req, res) => {
         }
     });
 });
+
+// Get all menu items
+app.get('/menu_items', (req, res) => {
+    mysqlConnection.query('SELECT * FROM menu_item', (err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            res.send(err);
+    });
+});
+
+
+
 
 
 // Endpoint to handle order submission
