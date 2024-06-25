@@ -163,48 +163,49 @@ app.get('/menu_items', async(req, res) => {
 app.post('/place_order', (req, res) => {
     const { custId, cart } = req.body;
 
+    if (!custId || !cart || cart.length === 0) {
+        return res.status(400).json({ data: 'Invalid order data', status_code: 400 });
+    }
+
     const orderDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     const orderTime = new Date().toTimeString().split(' ')[0]; // HH:MM:SS
 
     mysqlConnection.beginTransaction((err) => {
         if (err) {
-            return res.json({ data: 'Transaction error', status_code: 500 });
+            return res.status(500).json({ data: 'Transaction error', status_code: 500 });
         }
 
-        // Insert into food_order
         const insertOrderQuery = "INSERT INTO food_order (Cust_ID, Order_Date, Order_Time) VALUES (?, ?, ?)";
         mysqlConnection.query(insertOrderQuery, [custId, orderDate, orderTime], (err, result) => {
             if (err) {
                 return mysqlConnection.rollback(() => {
-                    res.json({ data: 'Error inserting order', status_code: 500 });
+                    res.status(500).json({ data: 'Error inserting order', status_code: 500 });
                 });
             }
 
             const orderNo = result.insertId;
 
-            // Insert into order_item
             const insertOrderItemQuery = "INSERT INTO order_item (Order_No, Item_ID, Quantity) VALUES ?";
             const orderItems = cart.map(item => [orderNo, item.id, item.quantity]);
             mysqlConnection.query(insertOrderItemQuery, [orderItems], (err, result) => {
                 if (err) {
                     return mysqlConnection.rollback(() => {
-                        res.json({ data: 'Error inserting order items', status_code: 500 });
+                        res.status(500).json({ data: 'Error inserting order items', status_code: 500 });
                     });
                 }
 
                 mysqlConnection.commit((err) => {
                     if (err) {
                         return mysqlConnection.rollback(() => {
-                            res.json({ data: 'Transaction commit error', status_code: 500 });
+                            res.status(500).json({ data: 'Transaction commit error', status_code: 500 });
                         });
                     }
-                    res.json({ data: 'Order placed successfully', status_code: 200 });
+                    res.status(200).json({ data: 'Order placed successfully', status_code: 200 });
                 });
             });
         });
     });
 });
-
 
 
 // Change the port to 8080 for testing
