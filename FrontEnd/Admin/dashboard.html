@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <div id="admin-dashboard">
+        <button onclick="viewCustomers()">View Registered Customers</button>
+        <button onclick="viewOrders()">View Orders</button>
+        <button onclick="manageMenuItems()">Manage Menu Items</button>
+        <button onclick="viewDailySales()">View Daily Sales</button>
+    </div>
+    <div id="content"></div>
+
+    <script src="scripts.js"></script>
+</body>
+<script>
+    // scripts.js
+
+    async function viewCustomers() {
+        const response = await fetch('/admin/customers');
+        const customers = await response.json();
+        let content = '<h2>Registered Customers</h2><ul>';
+        customers.forEach(customer => {
+            content += `<li>${customer.Cust_FName} ${customer.Cust_LName} - ${customer.Cust_email}</li>`;
+        });
+        content += '</ul>';
+        document.getElementById('content').innerHTML = content;
+    }
+
+    async function viewOrders() {
+        const response = await fetch('/admin/orders');
+        const orders = await response.json();
+        let content = '<h2>Orders</h2><ul>';
+        orders.forEach(order => {
+            content += `<li>Order No: ${order.Order_No}, Customer ID: ${order.Cust_ID}, Date: ${order.Order_Date}, Time: ${order.Order_Time}</li>`;
+        });
+        content += '</ul>';
+        document.getElementById('content').innerHTML = content;
+    }
+
+    async function manageMenuItems() {
+        const response = await fetch('/admin/menu-items');
+        const menuItems = await response.json();
+        let content = '<h2>Menu Items</h2><ul>';
+        menuItems.forEach(item => {
+            content += `<li>${item.Item_Name} - ${item.Unit_Price} <img src="${item.Item_Img_path}" alt="${item.Item_Name}" width="50"></li>`;
+        });
+        content += '</ul>';
+        document.getElementById('content').innerHTML = content;
+    }
+
+    async function viewDailySales() {
+        const response = await fetch('/admin/daily-sales');
+        const sales = await response.json();
+        let content = '<h2>Daily Sales</h2>';
+        sales.forEach(sale => {
+            content += `<p>${sale.date}: ${sale.total}</p>`;
+        });
+        document.getElementById('content').innerHTML = content;
+    }
+
+</script>
+</html>

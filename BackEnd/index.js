@@ -145,6 +145,38 @@ app.post('/signin', (req, res) => {
 });
 
 
+// Endpoint to handle order submission
+/*app.post('/placeOrder', (req, res) => {
+    const { custId, orderItems } = req.body;
+    const orderDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const orderTime = new Date().toISOString().split('T')[1].split('.')[0]; // HH:MM:SS
+
+    // Insert order into food_order table
+    const insertOrderSql = 'INSERT INTO food_order (Cust_ID, Order_Date, Order_Time) VALUES (?, ?, ?)';
+    mysqlConnection.query(insertOrderSql, [custId, orderDate, orderTime], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ data: 'Error inserting order', status_code: 500 });
+        }
+
+        const orderId = result.insertId;
+
+        // Insert items into order_item table
+        const insertOrderItemsSql = 'INSERT INTO order_item (Order_No, Item_ID, Quantity) VALUES ?';
+        const orderItemsData = orderItems.map(item => [orderId, item.itemId, item.quantity]);
+
+        mysqlConnection.query(insertOrderItemsSql, [orderItemsData], (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ data: 'Error inserting order items', status_code: 500 });
+            }
+
+            return res.status(200).json({ data: 'Order placed successfully', status_code: 200 });
+        });
+    });
+});
+*/
+
 
 
 // Change the port to 8080 for testing
