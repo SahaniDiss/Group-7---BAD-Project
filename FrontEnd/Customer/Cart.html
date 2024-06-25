@@ -210,6 +210,44 @@
             localStorage.setItem('cart', JSON.stringify(cart));
             loadCart();
         }
+        function placeOrder() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let customer = JSON.parse(localStorage.getItem('customer')); // Assuming customer info is stored in localStorage
+
+            fetch('http://localhost:8080/place_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    custId: customer.Customer_ID,
+                    cart: cart.map(item => ({
+                        id: item.id, // Assuming each item has an id
+                        quantity: item.quantity
+                    }))
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status_code === 200) {
+                    alert('Order placed successfully!');
+                    localStorage.removeItem('cart');
+                    window.location.href = 'HomePage.html';
+                } else {
+                    alert('Error placing order: ' + data.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error placing order:', error);
+            });
+        }
+
+        window.onload = function() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.map(item => ({ ...item, quantity: item.quantity || 1, unitPrice: item.unitPrice || item.price }));
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
     </script>
 </body>
 </html>

@@ -9,11 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
-
     <style>
         body {
-            
-            background-image: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;; /* Add the URL of your background image */
+            background-image: url('https://mypenang.gov.my/uploads/page/86/images/Banana-Leaf_2.jpg') no-repeat center center fixed;
             background-position: center;
             display: flex;
             flex-direction: column;
@@ -38,10 +36,9 @@
             font-size: 1.5rem;
             margin-bottom: 20px;
         }
-        #order-value, #delivery-charge, #order-total,p{
+        #order-value, #delivery-charge, #order-total, p {
             color: #000;
         }
-        
     </style>
 </head>
 <body>
@@ -53,7 +50,7 @@
             <a href="Menu.html" class="button">Menu</a>
             <a href="contact.html">Contact</a>
             <a href="signin.html">SignIn</a>
-            <a href="Cart.html" >Cart</a>
+            <a href="Cart.html">Cart</a>
         </div>
     </nav>
     <main>
@@ -70,7 +67,7 @@
             <p>Your order has been placed successfully.</p>
             <p>Please make the payment at the point of delivery with cash or card payment options.</p>
         </div>
-        <button class="button" onclick="goToHomePage()">Home</button>
+        <button class="button" onclick="placeOrder()">Place Order</button>
     </main>
 
     <script>
@@ -96,9 +93,36 @@
             document.getElementById('order-total').textContent = `Total: Rs ${totalValue.toFixed(2)}`;
         }
 
-        function goToHomePage() {
-            localStorage.removeItem('cart');
-            window.location.href = 'HomePage.html';
+        function placeOrder() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let customer = JSON.parse(localStorage.getItem('customer')); // Assuming customer info is stored in localStorage
+
+            fetch('http://localhost:8080/place_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    custId: customer.id,
+                    cart: cart.map(item => ({
+                        id: item.id, // Assuming each item has an id
+                        quantity: item.quantity
+                    }))
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status_code === 200) {
+                    alert('Order placed successfully!');
+                    localStorage.removeItem('cart');
+                    window.location.href = 'HomePage.html';
+                } else {
+                    alert('Error placing order: ' + data.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error placing order:', error);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', (event) => {

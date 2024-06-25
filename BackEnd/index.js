@@ -149,7 +149,7 @@ app.post('/signin', (req, res) => {
 });
 
 // Get all menu items
-app.get('/menu_items', (req, res) => {
+app.get('/menu_items', async(req, res) => {
     mysqlConnection.query('SELECT * FROM menu_item', (err, rows, fields) => {
         if (!err)
             res.send(rows);
@@ -159,40 +159,51 @@ app.get('/menu_items', (req, res) => {
 });
 
 
+// Endpoint to place an order
+app.post('/place_order', (req, res) => {
+    const { custId, cart } = req.body;
 
-
-
-// Endpoint to handle order submission
-/*app.post('/placeOrder', (req, res) => {
-    const { custId, orderItems } = req.body;
     const orderDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-    const orderTime = new Date().toISOString().split('T')[1].split('.')[0]; // HH:MM:SS
+    const orderTime = new Date().toTimeString().split(' ')[0]; // HH:MM:SS
 
-    // Insert order into food_order table
-    const insertOrderSql = 'INSERT INTO food_order (Cust_ID, Order_Date, Order_Time) VALUES (?, ?, ?)';
-    mysqlConnection.query(insertOrderSql, [custId, orderDate, orderTime], (err, result) => {
+    mysqlConnection.beginTransaction((err) => {
         if (err) {
-            console.log(err);
-            return res.status(500).json({ data: 'Error inserting order', status_code: 500 });
+            return res.json({ data: 'Transaction error', status_code: 500 });
         }
 
-        const orderId = result.insertId;
-
-        // Insert items into order_item table
-        const insertOrderItemsSql = 'INSERT INTO order_item (Order_No, Item_ID, Quantity) VALUES ?';
-        const orderItemsData = orderItems.map(item => [orderId, item.itemId, item.quantity]);
-
-        mysqlConnection.query(insertOrderItemsSql, [orderItemsData], (err, result) => {
+        // Insert into food_order
+        const insertOrderQuery = "INSERT INTO food_order (Cust_ID, Order_Date, Order_Time) VALUES (?, ?, ?)";
+        mysqlConnection.query(insertOrderQuery, [custId, orderDate, orderTime], (err, result) => {
             if (err) {
-                console.log(err);
-                return res.status(500).json({ data: 'Error inserting order items', status_code: 500 });
+                return mysqlConnection.rollback(() => {
+                    res.json({ data: 'Error inserting order', status_code: 500 });
+                });
             }
 
-            return res.status(200).json({ data: 'Order placed successfully', status_code: 200 });
+            const orderNo = result.insertId;
+
+            // Insert into order_item
+            const insertOrderItemQuery = "INSERT INTO order_item (Order_No, Item_ID, Quantity) VALUES ?";
+            const orderItems = cart.map(item => [orderNo, item.id, item.quantity]);
+            mysqlConnection.query(insertOrderItemQuery, [orderItems], (err, result) => {
+                if (err) {
+                    return mysqlConnection.rollback(() => {
+                        res.json({ data: 'Error inserting order items', status_code: 500 });
+                    });
+                }
+
+                mysqlConnection.commit((err) => {
+                    if (err) {
+                        return mysqlConnection.rollback(() => {
+                            res.json({ data: 'Transaction commit error', status_code: 500 });
+                        });
+                    }
+                    res.json({ data: 'Order placed successfully', status_code: 200 });
+                });
+            });
         });
     });
 });
-*/
 
 
 

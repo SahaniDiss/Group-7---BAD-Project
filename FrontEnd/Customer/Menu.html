@@ -43,15 +43,16 @@
                     const menuSection = document.getElementById('menu-items');
                     menuSection.innerHTML = '';
                     data.forEach(item => {
+                        console.log(item.Item_Img_path);
                         const menuItem = document.createElement('div');
                         menuItem.className = 'item';
                         menuItem.innerHTML = `
-                            <img src="/public/${item.Item_Img_path}" alt="${item.Item_Name}">
+                            <img src='../public/images/${item.Item_Img_path}' alt="${item.Item_Name}">
                             <h3>${item.Item_Name}</h3>
                             <p>${item.Item_Des}</p>
                             <p>Rs ${item.Unit_Price.toFixed(2)}</p>
-                            <button onclick="addToCart('${item.Item_Name}', ${item.Unit_Price})">Add to Cart</button>
-                            <button onclick="orderNow('${item.Item_Name}', ${item.Unit_Price})">Order Now</button>
+                            <button onclick="addToCart('${item.Item_Name}', ${item.Unit_Price}, ${item.Item_ID})">Add to Cart</button>
+                            <button onclick="orderNow('${item.Item_Name}', ${item.Unit_Price}, ${item.Item_ID})">Order Now</button>
                         `;
                         menuSection.appendChild(menuItem);
                     });
@@ -61,15 +62,15 @@
                 });
         }
 
-        function addToCart(item, price) {
+        function addToCart(item, price, id) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.push({ item, price });
+            cart.push({ item, price, id });
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(`${item} added to cart!`);
         }
 
-        function orderNow(item, price) {
-            addToCart(item, price);
+        function orderNow(item, price, id) {
+            addToCart(item, price, id);
             window.location.href = 'Cart.html';
         }
     </script>
